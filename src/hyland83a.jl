@@ -514,7 +514,6 @@ function efactor(Tk, P, relax=1.0, EPS=1e-8, MAXITER=200)
     caaw = Caaw(Tk)
     caww = Caww(Tk)
     cwww = Cwww(Tk)
-    fun = f -> (log(f) - lnf(f, P, p, k, κ, vc, RT, baa, baw, bww, caaa, caaw, caww, cwww))
 
     ef = 1e-8
     
@@ -522,8 +521,8 @@ function efactor(Tk, P, relax=1.0, EPS=1e-8, MAXITER=200)
     err = 0.0
     df = 0.0
     for i = 1:MAXITER
-        g = fun(f)
-        dg = (fun(f+ef) - g) / ef
+        g = (log(f) - lnf(f, P, p, k, κ, vc, RT, baa, baw, bww, caaa, caaw, caww, cwww))
+        dg = (log(f + ef) - lnf(f + ef, P, p, k, κ, vc, RT, baa, baw, bww, caaa, caaw, caww, cwww) - g) / ef
         df = -g/dg
                 
         if abs(df) < EPS
